@@ -7,9 +7,10 @@
 <div id="menu" class="scr">
   <h1 style="font-size:34px">🎯 Diana</h1>
   <input id="nm" placeholder="Tu nombre" maxlength="10">
-  <button class="r" onclick="startLocal()">Jugar con bots</button>
+  <button class="r" onclick="startLocal(4)">Jugar con bots</button>
+  <button class="r" onclick="startLocal(2)">1 vs 1 contra bot</button>
   <div class="sep">Jugar con amigos</div>
-  <select id="mode"><option value="4">4 jugadores (clásico)</option><option value="6">6 jugadores · mapa grande</option><option value="8">8 jugadores · mapa grande</option></select>
+  <select id="mode"><option value="2">2 jugadores (1 vs 1)</option><option value="4">4 jugadores (clásico)</option><option value="6">6 jugadores · mapa grande</option><option value="8">8 jugadores · mapa grande</option></select>
   <button class="r" onclick="createRoom()">Crear sala privada</button>
   <div class="row"><input id="code" placeholder="CÓDIGO" maxlength="5"><button class="r" onclick="joinRoom()">Unirse</button></div>
 </div>
@@ -21,7 +22,7 @@
   <button class="r r2" onclick="leave()">Salir</button>
 </div>
 <div id="game" class="scr" style="display:none">
-  <h1><span id="exit" onclick="leave()">‹</span> BULLSEYE</h1><div id="st"></div><div id="cards"></div>
+  <h1><span id="exit" onclick="leave()">‹</span> DIANA</h1><div id="st"></div><div id="cards"></div>
   <div id="bd"></div>
   <div id="ui"><div><div id="wl"></div><small id="wn"></small></div><small>Arrastra un bloque al tablero</small></div>
   <div id="pal">
