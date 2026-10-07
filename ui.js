@@ -1,7 +1,7 @@
 // ===== UI =====
 let S,G,drag=null;let u=100/N;const $=id=>document.getElementById(id);
 function rot(){return 0}
-function show(id){['menu','lobby','game'].forEach(x=>$(x).style.display=x==id?'flex':'none')}
+function show(id){['menu','lobby','game'].forEach(x=>$(x).style.display=x==id?'flex':'none');if(typeof chatVis=='function')chatVis(id)}
 function startLocal(P=4){setMode(P);G={seats:[{name:myName()},{name:'Ash',bot:1},{name:'Nova',bot:1},{name:'Pip',bot:1}].slice(0,P),me:0,online:false,host:true};begin(newState(P))}
 function begin(s){S=s;$('ov').style.display='none';show('game');render();tick()}
 function submit(a){ if(G.online&&!G.host){Online.send('act',{seat:G.me,a});return}

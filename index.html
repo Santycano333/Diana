@@ -30,10 +30,14 @@
     <button class="b" id="bv"><span style="width:10px;height:60px"></span></button></div>
   <div id="ov"><div id="ovt"></div><button class="r" id="ovr" onclick="backToRoom()">Volver a la sala</button><button class="r r2" onclick="leave()">Salir al menú</button></div>
 </div>
+<div id="chattoast" onclick="chatToggle()"></div>
+<div id="chatp"><div id="chatlog"></div><div id="chatrow"><input id="chatin" placeholder="Escribe un mensaje..." maxlength="120" autocomplete="off"><button class="r" onclick="chatSend()">➤</button></div></div>
+<button id="chatbtn" onclick="chatToggle()">💬<span id="chatbadge"></span></button>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/dist/umd/supabase.js"></script>
 <script src="config.js"></script>
 <script src="logic.js"></script>
 <script src="online.js"></script>
 <script src="ui.js"></script>
 <script src="lobby.js"></script>
+<script src="chat.js"></script>
 </body></html>

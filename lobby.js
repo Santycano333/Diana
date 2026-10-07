@@ -6,11 +6,11 @@ function needOnline(){ if(!Online.init()){alert('Configura config.js con tus cla
 const lob=()=>Online.send('lobby',{P:L.P,seats:L.seats});
 function createRoom(){ if(!needOnline())return;
   const code=Array.from({length:5},()=>'ABCDEFGHJKLMNPQRSTUVWXYZ'[Math.random()*24|0]).join(''),P=+$('mode').value;
-  L={code,host:true,P,seats:Array(P).fill(null)};L.seats[0]={name:myName(),id:myId};
+  chatReset();L={code,host:true,P,seats:Array(P).fill(null)};L.seats[0]={name:myName(),id:myId};
   Online.open(code,onMsg,()=>{show('lobby');renderLobby()})}
 function joinRoom(){ if(!needOnline())return;
   const code=$('code').value.trim().toUpperCase(); if(code.length!=5)return;
-  L={code,host:false,P:4,seats:[]};
+  chatReset();L={code,host:false,P:4,seats:[]};
   Online.open(code,onMsg,()=>{Online.send('join',{id:myId,name:myName()});
     L.t=setTimeout(()=>{alert('Sala no encontrada o llena');leave()},4000)})}
 function renderLobby(){ $('lcode').textContent=L.code;
@@ -21,6 +21,7 @@ function startRoom(){ setMode(L.P);
   L.started=true; G={seats,me:0,online:true,host:true};
   const s=newState(L.P); Online.send('start',{seats,S:s}); begin(s)}
 function onMsg({t,d}){
+  if(t=='chat'){if(d.id!=myId)addChat(d);return}
   if(L.host){
     if(t=='join'&&!L.started){ let i=L.seats.findIndex(s=>s&&s.id==d.id); if(i<0)i=L.seats.findIndex(s=>!s);
       if(i>=0){L.seats[i]={id:d.id,name:d.name};lob();renderLobby()}}
@@ -40,4 +41,4 @@ function onMsg({t,d}){
 function backToRoom(){ if(!L)return leave();
   L.started=false;G=null;S=null;drag=null;$('ov').style.display='none';show('lobby');renderLobby();if(L.host)lob()}
 function leave(){ if(L){clearTimeout(L.t);if(L.host)Online.send('close',{});else if(!L.closed)Online.send('leave',{id:myId});Online.close(300)}
-  L=null;G=null;S=null;drag=null;$('ov').style.display='none';show('menu')}
+  L=null;G=null;S=null;drag=null;$('ov').style.display='none';chatReset();show('menu')}
