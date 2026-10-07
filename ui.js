@@ -19,7 +19,7 @@ bd.querySelectorAll('.d').forEach(d=>d.onpointerdown=()=>submit({type:'move',r:+
 $('cards').innerHTML=Array.from({length:G.seats.length-1},(_,k)=>(G.me+k+1)%G.seats.length).map(i=>`<div class="pc ${S.t==i?'on':''}" style="color:${COL[i]}"><b style="color:#eee">${G.seats[i].name}</b>${Array.from({length:W},(_,k)=>`<i class="${k<S.left[i]?'':'x'}"></i>`).join('')} <span style="color:#eee;font-size:13px">${S.left[i]}</span></div>`).join('');
 $('wl').innerHTML=Array.from({length:W},(_,k)=>`<i class="${k<S.left[G.me]?'':'x'}"></i>`).join('');$('wn').textContent=S.left[G.me]+' restantes';
 $('st').textContent=S.win>=0?(S.win==G.me?'¡Ganaste!':G.seats[S.win].name+' gana'):S.t==G.me?'Tu turno':'Turno de '+G.seats[S.t].name;
-if(S.win>=0){$('ovt').textContent=S.win==G.me?'🎯 ¡Ganaste!':G.seats[S.win].name+' llegó a la meta';$('ov').style.display='flex'}}
+if(S.win>=0){$('ovt').textContent=S.win==G.me?'🎯 ¡Ganaste!':G.seats[S.win].name+' llegó a la meta';$('ovr').style.display=G.online?'':'none';$('ov').style.display='flex'}}
 function tick(){if(!G||!G.host||S.win>=0||!G.seats[S.t].bot)return;setTimeout(()=>{if(!G||S.win>=0)return;const a=ai(S,S.t);if(a)apply(S,S.t,a);else S.t=(S.t+1)%S.p.length;if(G.online)Online.send('state',S);render();tick()},700)}
 function pos(e,o){const R=$('bd').getBoundingClientRect(),th=-rot()*Math.PI/180,
 dx=e.clientX-R.left-R.width/2,dy=e.clientY-R.top-R.height/2-(e.pointerType=='touch'?50:0),

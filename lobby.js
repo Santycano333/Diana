@@ -24,14 +24,20 @@ function onMsg({t,d}){
   if(L.host){
     if(t=='join'&&!L.started){ let i=L.seats.findIndex(s=>s&&s.id==d.id); if(i<0)i=L.seats.findIndex(s=>!s);
       if(i>=0){L.seats[i]={id:d.id,name:d.name};lob();renderLobby()}}
-    if(t=='leave'&&!L.started){L.seats=L.seats.map(s=>s&&s.id==d.id?null:s);lob();renderLobby()}
-    if(t=='act'&&S&&apply(S,d.seat,d.a)){Online.send('state',S);render();tick()}
+    if(t=='leave'){const gi=G?G.seats.findIndex(s=>s.id==d.id):-1;L.seats=L.seats.map(s=>s&&s.id==d.id?null:s);
+      if(!L.started){lob();renderLobby()}
+      else if(gi>=0){G.seats[gi]={name:G.seats[gi].name,bot:1};Online.send('seats',{seats:G.seats});render();if(S&&S.win<0&&S.t==gi)tick()}}
+    if(t=='act'&&S&&G&&apply(S,d.seat,d.a)){Online.send('state',S);render();tick()}
   }else{
     if(t=='lobby'){clearTimeout(L.t);
       if(!d.seats.some(s=>s&&s.id==myId)){alert('Sala llena');return leave()}
       L.P=d.P;L.seats=d.seats;show('lobby');renderLobby()}
     if(t=='start'){setMode(d.seats.length);G={seats:d.seats,me:d.seats.findIndex(s=>s.id==myId),online:true,host:false};begin(d.S)}
-    if(t=='state'){S=d;render()}
+    if(t=='state'&&G){S=d;render()}
+    if(t=='seats'&&G){G.seats=d.seats;render()}
+    if(t=='close'){L.closed=1;alert('El anfitrión cerró la sala');leave()}
   }}
-function leave(){ if(L){clearTimeout(L.t);if(!L.host)Online.send('leave',{id:myId});Online.close()}
+function backToRoom(){ if(!L)return leave();
+  L.started=false;G=null;S=null;drag=null;$('ov').style.display='none';show('lobby');renderLobby();if(L.host)lob()}
+function leave(){ if(L){clearTimeout(L.t);if(L.host)Online.send('close',{});else if(!L.closed)Online.send('leave',{id:myId});Online.close(300)}
   L=null;G=null;S=null;drag=null;$('ov').style.display='none';show('menu')}

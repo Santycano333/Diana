@@ -6,5 +6,5 @@ const Online={
     this.ch=this.sb.channel('bullseye-'+code);
     this.ch.on('broadcast',{event:'m'},p=>onMsg(p.payload)).subscribe(s=>{if(s==='SUBSCRIBED')onReady()})},
   send(t,d){ if(this.ch)this.ch.send({type:'broadcast',event:'m',payload:{t,d}})},
-  close(){ if(this.ch){this.sb.removeChannel(this.ch);this.ch=null}}
+  close(delay){ const ch=this.ch;if(!ch)return;this.ch=null;const f=()=>this.sb.removeChannel(ch);delay?setTimeout(f,delay):f()}
 };

@@ -19,7 +19,7 @@
   <div id="seats"></div>
   <button class="r" id="go" onclick="startRoom()">Empezar (huecos = bots)</button>
   <small id="wait"></small>
-  <button class="r r2" onclick="leave()">Salir</button>
+  <button class="r r2" onclick="leave()">Salir al menú</button>
 </div>
 <div id="game" class="scr" style="display:none">
   <h1><span id="exit" onclick="leave()">‹</span> DIANA</h1><div id="st"></div><div id="cards"></div>
@@ -28,7 +28,7 @@
   <div id="pal">
     <button class="b" id="bh"><span style="width:60px;height:10px"></span></button>
     <button class="b" id="bv"><span style="width:10px;height:60px"></span></button></div>
-  <div id="ov"><div id="ovt"></div><button class="r" onclick="leave()">Volver al menú</button></div>
+  <div id="ov"><div id="ovt"></div><button class="r" id="ovr" onclick="backToRoom()">Volver a la sala</button><button class="r r2" onclick="leave()">Salir al menú</button></div>
 </div>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/dist/umd/supabase.js"></script>
 <script src="config.js"></script>
