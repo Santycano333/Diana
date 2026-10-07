@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="es"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Bullseye</title>
+<link rel="stylesheet" href="style.css">
+</head><body>
+<div id="menu" class="scr">
+  <h1 style="font-size:34px">🎯 BULLSEYE</h1>
+  <input id="nm" placeholder="Tu nombre" maxlength="10">
+  <button class="r" onclick="startLocal()">Jugar con bots</button>
+  <div class="sep">Jugar con amigos</div>
+  <select id="mode"><option value="4">4 jugadores (clásico)</option><option value="6">6 jugadores · mapa grande</option><option value="8">8 jugadores · mapa grande</option></select>
+  <button class="r" onclick="createRoom()">Crear sala privada</button>
+  <div class="row"><input id="code" placeholder="CÓDIGO" maxlength="5"><button class="r" onclick="joinRoom()">Unirse</button></div>
+</div>
+<div id="lobby" class="scr" style="display:none">
+  <h1>Sala</h1><div id="lcode"></div><small>Comparte este código con tus amigos</small>
+  <div id="seats"></div>
+  <button class="r" id="go" onclick="startRoom()">Empezar (huecos = bots)</button>
+  <small id="wait"></small>
+  <button class="r r2" onclick="leave()">Salir</button>
+</div>
+<div id="game" class="scr" style="display:none">
+  <h1><span id="exit" onclick="leave()">‹</span> BULLSEYE</h1><div id="st"></div><div id="cards"></div>
+  <div id="bd"></div>
+  <div id="ui"><div><div id="wl"></div><small id="wn"></small></div><small>Arrastra un bloque al tablero</small></div>
+  <div id="pal">
+    <button class="b" id="bh"><span style="width:60px;height:10px"></span></button>
+    <button class="b" id="bv"><span style="width:10px;height:60px"></span></button></div>
+  <div id="ov"><div id="ovt"></div><button class="r" onclick="leave()">Volver al menú</button></div>
+</div>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/dist/umd/supabase.js"></script>
+<script src="config.js"></script>
+<script src="logic.js"></script>
+<script src="online.js"></script>
+<script src="ui.js"></script>
+<script src="lobby.js"></script>
+</body></html>
