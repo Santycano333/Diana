@@ -1,6 +1,6 @@
 // ===== UI =====
 let S,G,drag=null;let u=100/N;const $=id=>document.getElementById(id);
-function rot(){const[r,c]=starts(G.seats.length)[G.me],dr=r-MID,dc=c-MID;return Math.abs(dr)>=Math.abs(dc)?(dr>0?0:180):(dc>0?90:270)}
+function rot(){return 0}
 function show(id){['menu','lobby','game'].forEach(x=>$(x).style.display=x==id?'flex':'none')}
 function startLocal(){setMode(4);G={seats:[{name:myName()},{name:'Ash',bot:1},{name:'Nova',bot:1},{name:'Pip',bot:1}],me:0,online:false,host:true};begin(newState(4))}
 function begin(s){S=s;$('ov').style.display='none';show('game');render();tick()}
@@ -12,7 +12,7 @@ const wallH=(w,ex)=>{const t=1.6,l=w.o=='h'?w.c*u+.6:(w.c+1)*u-t/2,tp=w.o=='h'?(
 return`<div class="w" style="left:${l}%;top:${tp}%;width:${W}%;height:${Hh}%;background:${w.bg||COL[w.p]};color:${w.bg||COL[w.p]};${ex||''}"></div>`};
 S.w.forEach(w=>h+=wallH(w));
 if(drag&&drag.a)h+=wallH({...drag.a,bg:drag.ok?'#6cc04a':'#e0204a'},'opacity:.6');
-S.p.forEach((q,i)=>h+=`<div class="p" style="left:${q.c*u+1.2}%;top:${q.r*u+1.2}%;width:${u-2.4}%;height:${u-2.4}%;background:${COL[i]}"></div>`);
+S.p.forEach((q,i)=>h+=`<div class="p" style="left:${q.c*u+1.2}%;top:${q.r*u+1.2}%;width:${u-2.4}%;height:${u-2.4}%;background:${COL[i]};${i==G.me?'outline:3px solid #fff;outline-offset:1px':''}"></div>`);
 if(S.t==G.me&&S.win<0)moves(S,G.me).forEach(m=>h+=`<div class="d" data-r="${m.r}" data-c="${m.c}" style="left:${m.c*u+u*.3}%;top:${m.r*u+u*.3}%;width:${u*.4}%;height:${u*.4}%;box-shadow:0 0 0 ${u*.3}vmin #0000"></div>`);
 bd.innerHTML=h;bd.style.transform=`rotate(${rot()}deg)`;
 bd.querySelectorAll('.d').forEach(d=>d.onpointerdown=()=>submit({type:'move',r:+d.dataset.r,c:+d.dataset.c}));
